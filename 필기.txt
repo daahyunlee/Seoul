@@ -1,0 +1,23 @@
+Spring + MyBatis
+
+MyBatis(iBatis)
+- 응용 프로그램 <---[중간계층: 퍼시스턴스(데이터처리) 계층]---> 데이터베이스
+ - JDBC의 Connection, Statement와 비슷한 역할 수행하는 객체 제공 (ojbc.jar)
+ - Spring JDBC (ojbc.jar + 스프링세팅)
+ - MyBatis 
+ 	1. pom.xml : ojbc.jar + mybatis + log4j + lombuk + AOP [사설 repository, dependency, ]
+ 	2. WEB-INF > spring > root-context.xml : 여기서 MyBatis를 설정한다.
+
+
+1. POST 인코딩 필터 : web.xml
+ 	
+2. 파일 생성
+- SeoulController.java
+
+- SeoulService.java + ISeoulService.java
+
+- SeoulDAO.java
+
+- Seoul.DTO.java
+
+- views > seoulmain.jsp

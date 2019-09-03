@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper 파일! -->
+<!-- namespace="" : 업무의미 내포된 이름으로 | 마치, 패키지이름처럼! -->
+
+<mapper namespace="test">
+	<!-- 쿼리 작성이 이제 XML파일에서 진행됨 -->
+	<!-- 문장종결자X WHY? 하나의 쿼리만을 넘길 수 있기때문 -->
+	
+<!-- [  ㅇ ㅖ ㅅ ㅣ   ]	
+
+	<update id="m1">
+		update tblMyBatis set
+			num = num + 1
+	</update>	
+	
+
+	
+	<insert id="m3" parameterType="java.util.HashMap">
+		insert into tblMyBatis 
+			values (mybatis_seq.nextval, #{num}, #{txt})
+	</insert> 
+	
+-->
+
+
+	<!-- 자료형이 맞게끔 바인딩됨 → JDBC이기대문에 #{num}자리에 ?로 바뀌어 들어갈 것임 -->
+	<!-- #{num} 해쉬맵의 key값 -->
+	
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

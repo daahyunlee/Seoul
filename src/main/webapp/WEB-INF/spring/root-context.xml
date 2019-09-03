@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	 <!-- BasicDataSource 클래스에 대한 객체 만들기 [데이터베이스 만들기 위한 사전작업] : Setter를 통해 연결정보 주입-->
+	 <!-- XML의 환경상태는 인터프리터와 가까운 상태 -->
+	 <bean class="org.apache.commons.dbcp.BasicDataSource" id="datasource"> <!-- 객체 생성 시, 아래 객체도 같이 생성됨, Why? 아래에서 지금 의존주입함 -->
+	 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+	 	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+	 	<property name="username" value="hr"></property>
+	 	<property name="password" value="java1234"></property>
+	 </bean>
+	 
+	 
+	 
+	 
+ 	<!-- log4j 객체 : 데이터베이스 작업 객체의 업무 사이에 끼어들어 현제 작업하는 내용을 로그로 남기는 역할 -->
+	<bean class="net.sf.log4jdbc.Log4jdbcProxyDataSource" id="log4j">
+		<constructor-arg ref="datasource"></constructor-arg>
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE"></property>
+				<property name="sqlPrefix" value="[SQL] "></property>
+			</bean>
+		</property>
+	</bean>
+	 
+	 
+	 
+	 
+	
+	 <!-- 
+	 JDBC : Statement/PreparedStatement/CallableStatement
+	 Spring-JDBC : JdbcTemplate 
+	 MyBatis : SqlSessionTemplate(+SqlSessionFactoryBean)
+	 -->
+	 <!-- 어떤 오라클을 사용하여 돌아가는지 알기 위해 참조함 > How? 의존주입 -->
+	 <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sessionfactory">
+	 	<property name="dataSource" ref="log4j"></property> <!-- [의존주입]: ref="log4j"  -->
+	 	<property name="mapperLocations" value="classpath*:com/test/spring/mapper/*.xml"></property> <!-- [ classpath*: 	  scr  |  com/test/mapper   패키지 ] -->
+	 	<property name="configLocation" value="/WEB-INF/mybatis.xml"></property> <!-- mybatis운영설정 정의 -->
+	 </bean>
+	 
+	 
+	 
+	 
+	 
+	 <!-- 모든 쿼리를 날려줌!!!!***
+	 JDBC : Statement/PreparedStatement/CallableStatement 반환값 or ResultSet
+	 Spring-JDBC : JdbcTemplate
+	 	- ResultSet없음
+	 MYBatis : SqlSessionTemplate
+	 -->
+	 <bean class="org.mybatis.spring.SqlSessionTemplate">
+	 	<constructor-arg ref="sessionfactory"></constructor-arg>
+	 </bean>
+	 
+	 
+	 
+</beans>

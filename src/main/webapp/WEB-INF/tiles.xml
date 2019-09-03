@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<!-- 
+		- 선정의 > 후사용
+		- 정의된 조각페이지만 사용가능하다! 
+		- 한 곳에 모아 관리함 > 유지보수 용이함	
+	-->
+	
+	<definition name="*" template="/WEB-INF/views/layout/seoul.jsp">
+		<!-- 어떤 조각페이지를 사용할 지 넣는 곳! → 4가지 페이지 정의 -->
+		<put-attribute name="asset" value="/WEB-INF/views/inc/asset.jsp"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/views/inc/header.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp"></put-attribute>
+		<put-attribute name="seoulmain" value="/WEB-INF/views/content/{1}.jsp"></put-attribute><!-- 사용용도에 따라 계속 바뀐다.! -->
+	</definition>
+	
+	
+
+</tiles-definitions>
